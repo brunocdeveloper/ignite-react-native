@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Button} from '../components/Button';
+import {SkillCard} from '../components/SkillCard';
 
 export function Home() {
   const [newSkill, setNewSkill] = useState();
@@ -33,11 +34,7 @@ export function Home() {
 
       <Text style={[styles.title, {marginVertical: 50}]}>My Skills</Text>
 
-      {mySkills.map(skills => (
-        <TouchableOpacity key={skills} style={styles.buttonSkill}>
-          <Text style={styles.textSkill}>{skills}</Text>
-        </TouchableOpacity>
-      ))}
+      <SkillCard listSkills={mySkills} />
     </View>
   );
 }
