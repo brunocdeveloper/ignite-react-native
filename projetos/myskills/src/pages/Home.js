@@ -7,6 +7,8 @@ import {
   TextInput,
   Platform,
   TouchableOpacity,
+  FlatList,
+  ScrollView,
 } from 'react-native';
 import {Button} from '../components/Button';
 import {SkillCard} from '../components/SkillCard';
@@ -34,7 +36,11 @@ export function Home() {
 
       <Text style={[styles.title, {marginVertical: 50}]}>My Skills</Text>
 
-      <SkillCard listSkills={mySkills} />
+      <FlatList
+        data={mySkills}
+        keyExtractor={item => item}
+        renderItem={({item}) => <SkillCard key={item} skill={item} />}
+      />
     </View>
   );
 }
