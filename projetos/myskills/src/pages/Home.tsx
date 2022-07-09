@@ -29,6 +29,10 @@ export function Home() {
     setMySkills(prevState => [...prevState, data]);
   }
 
+  function handleRemoveSkill(id: string) {
+    setMySkills(prev => prev.filter(skill => skill.id !== id));
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome, Bruno!</Text>
@@ -47,7 +51,12 @@ export function Home() {
       <FlatList
         data={mySkills}
         keyExtractor={item => item.id}
-        renderItem={({item}) => <SkillCard skill={item.name} />}
+        renderItem={({item}) => (
+          <SkillCard
+            onPress={() => handleRemoveSkill(item.id)}
+            skill={item.name}
+          />
+        )}
       />
     </View>
   );
