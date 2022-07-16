@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text } from "react-native";
+
 import {
   Container,
   Header,
@@ -9,6 +10,7 @@ import {
   UserGreeting,
   UserName,
   UserWrapper,
+  Icon,
 } from "./styles";
 
 export default function Dashboard() {
@@ -28,6 +30,7 @@ export default function Dashboard() {
               <UserName>Bruno</UserName>
             </User>
           </UserInfo>
+          <Icon name="power" />
         </UserWrapper>
       </Header>
     </Container>

@@ -1734,6 +1734,13 @@
   resolved "https://registry.yarnpkg.com/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
   integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
 
+"@types/expo@^33.0.1":
+  version "33.0.1"
+  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-33.0.1.tgz#e9da2e0754e988906b54837a612d11011bee1bd6"
+  integrity sha512-0ka6bRIgfhkq3whAv3mOE/jMEGJFhbFYPA9ADS/nak/nDyaUoCIhD6bWf0yt+a5m0IKK9x0FeUkFkDVHY7+O4w==
+  dependencies:
+    expo "*"
+
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
@@ -3215,7 +3222,7 @@ expo-status-bar@~1.3.0:
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.3.0.tgz#d71fd0b880ea201905f5dd8abcd18db7476c9f03"
   integrity sha512-UszYUsT8A8jSUebrXht095Iwv5VIdg61LPuyNNoC5gFP0E9G+8LgX68deqR4zhJOlbsgSH2cixxKhrGW+1HPZg==
 
-expo@~45.0.0:
+expo@*, expo@~45.0.0:
   version "45.0.6"
   resolved "https://registry.yarnpkg.com/expo/-/expo-45.0.6.tgz#9c336d2052022b0606b07d02e2bd0f41d39109ab"
   integrity sha512-QOemudowFuzgxmK/bNMdOngpBOf6yLkkA9zWBcMQYEDyaz16GLVm1IpzZ2nAFuUKuwUkzvB62QzQDIFS7jdN5g==
