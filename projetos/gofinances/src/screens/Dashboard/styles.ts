@@ -5,11 +5,11 @@ export const Container = styled.View`
 	flex: 1;
 	justify-content: center;
 
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Title = styled.Text`
-	color: purple;
+  font-family: ${({ theme }) => theme.fonts.bold};
+	color: ${({ theme }) => theme.colors.title};
 	font-size: 24px;
-	font-weight: bold;
 `
