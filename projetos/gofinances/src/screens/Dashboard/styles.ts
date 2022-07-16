@@ -2,6 +2,8 @@ import styled from "styled-components/native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
 import { AnyStyledComponent } from "styled-components";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { Platform } from "react-native";
 
 export const Container = styled.View`
   flex: 1;
@@ -13,13 +15,18 @@ export const Header = styled.View`
   height: ${RFPercentage(42)}px;
   background-color: ${({ theme }) => theme.colors.primary};
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: row;
 `;
 
 export const UserWrapper = styled.View`
   width: 100%;
   padding: 0 24px;
+
+  margin-top: ${Platform.OS === "ios"
+    ? getStatusBarHeight() + RFValue(28)
+    : RFValue(28)}px;
+
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
