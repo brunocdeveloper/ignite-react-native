@@ -15,7 +15,7 @@ interface Category {
   icon: string;
 }
 
-interface Data {
+export interface TransactionCardProps {
   type: "positive" | "negative";
   title: string;
   amount: string;
@@ -24,10 +24,10 @@ interface Data {
 }
 
 interface Props {
-  data: Data;
+  data: TransactionCardProps;
 }
 
-const TransactionCard = ({ data }: Props) => {
+export const TransactionCard = ({ data }: Props) => {
   return (
     <Container>
       <Title>{data.title}</Title>
@@ -44,5 +44,3 @@ const TransactionCard = ({ data }: Props) => {
     </Container>
   );
 };
-
-export default TransactionCard;
