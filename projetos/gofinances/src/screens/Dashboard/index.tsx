@@ -21,6 +21,7 @@ import {
 export default function Dashboard() {
   const data = [
     {
+      type: "positive",
       title: "Desenvolvimento de site",
       amount: "R$ 4.200,00",
       category: {
@@ -30,29 +31,22 @@ export default function Dashboard() {
       date: "17/07/2022",
     },
     {
-      title: "Desenvolvimento de site",
-      amount: "R$ 4.200,00",
+      type: "negative",
+      title: "Hamburguer",
+      amount: "R$ 32,00",
       category: {
-        name: "Vendas",
-        icon: "dollar-sign",
+        name: "Alimentação",
+        icon: "coffee",
       },
       date: "17/07/2022",
     },
     {
-      title: "Desenvolvimento de site",
-      amount: "R$ 4.200,00",
+      type: "negative",
+      title: "Aluguel apartamento",
+      amount: "R$ 1.400,00",
       category: {
-        name: "Vendas",
-        icon: "dollar-sign",
-      },
-      date: "17/07/2022",
-    },
-    {
-      title: "Desenvolvimento de site",
-      amount: "R$ 4.200,00",
-      category: {
-        name: "Vendas",
-        icon: "dollar-sign",
+        name: "Aluguel",
+        icon: "shopping-bag",
       },
       date: "17/07/2022",
     },
@@ -103,7 +97,7 @@ export default function Dashboard() {
         <Title>Listagem</Title>
         <TransatcionList
           data={data}
-          renderItem={({ item }) => <TransactionCard data={item} />}
+          renderItem={({ item }: any) => <TransactionCard data={item} />}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: getBottomSpace(),

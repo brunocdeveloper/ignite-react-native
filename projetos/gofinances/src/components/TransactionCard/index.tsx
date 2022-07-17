@@ -15,23 +15,28 @@ interface Category {
   icon: string;
 }
 
+interface Data {
+  type: "positive" | "negative";
+  title: string;
+  amount: string;
+  category: Category;
+  date: string;
+}
+
 interface Props {
-  data: {
-    title: string;
-    amount: string;
-    category: Category;
-    date: string;
-  };
+  data: Data;
 }
 
 const TransactionCard = ({ data }: Props) => {
   return (
     <Container>
       <Title>{data.title}</Title>
-      <Amount>{data.amount}</Amount>
+      <Amount type={data.type}>
+        {data.type === "negative" ? `- ${data.amount}` : data.amount}
+      </Amount>
       <Footer>
         <Category>
-          <Icon name={data.category?.icon} />
+          <Icon type={data.type} name={data.category?.icon} />
           <CategoryName>{data.category?.name}</CategoryName>
         </Category>
         <Date>{data.date}</Date>
