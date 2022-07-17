@@ -17,6 +17,16 @@ import {
 } from "./styles";
 
 export default function Dashboard() {
+  const data = {
+    title: "Desenvolvimento de site",
+    amount: "R$ 4.200,00",
+    category: {
+      name: "Vendas",
+      icon: "dollar-sign",
+    },
+    date: "17/07/2022",
+  };
+
   return (
     <Container>
       <Header>
@@ -61,7 +71,7 @@ export default function Dashboard() {
       <Transactions>
         <Title>Listagem</Title>
 
-        <TransactionCard />
+        <TransactionCard data={data} />
       </Transactions>
     </Container>
   );
