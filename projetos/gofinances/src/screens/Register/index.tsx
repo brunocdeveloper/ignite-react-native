@@ -28,7 +28,11 @@ export function Register() {
     setTransactionType(type);
   };
 
-  const handleCloseSelectCategory = () => {
+  const handleOpenCloseSelectCategoryModal = () => {
+    setCategoryModalOpen(true);
+  };
+
+  const handleCloseSelectCategoryModal = () => {
     setCategoryModalOpen(false);
   };
 
@@ -57,7 +61,10 @@ export function Register() {
               isActive={transactionType === "down"}
             />
           </TransacitonsTypes>
-          <CategorySelectButton title="Categoria" />
+          <CategorySelectButton
+            title={category.name}
+            onPress={handleOpenCloseSelectCategoryModal}
+          />
         </Fields>
 
         <Button title="Enviar" />
@@ -67,7 +74,7 @@ export function Register() {
         <CategorySelect
           category={category}
           setCategory={setCategory}
-          closeSelectCategory={handleCloseSelectCategory}
+          closeSelectCategory={handleCloseSelectCategoryModal}
         />
       </Modal>
     </Container>
