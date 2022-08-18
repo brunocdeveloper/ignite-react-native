@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, Modal } from "react-native";
 import { Button } from "../../components/Forms/Button";
 import { categories } from "../../utils/categories";
 import {
@@ -19,7 +19,7 @@ interface Category {
 }
 
 interface Props {
-  category: string;
+  category: Category;
   setCategory: (category: Category) => void;
   closeSelectCategory: () => void;
 }
