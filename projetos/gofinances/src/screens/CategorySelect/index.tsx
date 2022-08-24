@@ -38,7 +38,6 @@ export function CategorySelect({
       <Header>
         <Title>Categories</Title>
       </Header>
-
       <FlatList
         data={categories}
         style={{ flex: 1, width: "100%" }}
