@@ -1,11 +1,13 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import HighlightCard from "../../components/HighlightCard";
 import {
   TransactionCard,
   TransactionCardProps,
 } from "../../components/TransactionCard";
+import { AsyncStorage } from "react-native";
+
 import {
   Container,
   Header,
@@ -28,41 +30,43 @@ export interface DataListProps extends TransactionCardProps {
 }
 
 export default function Dashboard() {
-  const data: DataListProps[] = [
-    {
-      id: "1",
-      type: "positive",
-      title: "Desenvolvimento de site",
-      amount: "R$ 4.200,00",
-      category: {
-        name: "Vendas",
-        icon: "dollar-sign",
-      },
-      date: "17/07/2022",
-    },
-    {
-      id: "2",
-      type: "negative",
-      title: "Hamburguer",
-      amount: "R$ 32,00",
-      category: {
-        name: "Alimentação",
-        icon: "coffee",
-      },
-      date: "17/07/2022",
-    },
-    {
-      id: "3",
-      type: "negative",
-      title: "Aluguel apartamento",
-      amount: "R$ 1.400,00",
-      category: {
-        name: "Aluguel",
-        icon: "shopping-bag",
-      },
-      date: "17/07/2022",
-    },
-  ];
+  const [data, setData] = useState<DataListProps[]>([]);
+
+  async function loadTransactions() {
+    const dataKey = "@gofinances:transactions";
+    const response = await AsyncStorage.getItem(dataKey);
+    const transactions = response ? JSON.parse(response) : [];
+
+    const transactionsFormated: DataListProps[] = transactions.map(
+      (item: DataListProps) => {
+        const amount = Number(item.amount).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+
+        const date = Intl.DateTimeFormat("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit",
+        }).format(new Date(item.date));
+
+        return {
+          id: item.id,
+          name: item.name,
+          amount,
+          type: item.type,
+          category: item.category,
+          date,
+        };
+      }
+    );
+
+    setData(transactionsFormated);
+  }
+
+  useEffect(() => {
+    loadTransactions();
+  }, []);
 
   return (
     <Container>
