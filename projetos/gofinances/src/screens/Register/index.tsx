@@ -20,6 +20,11 @@ import { useForm } from "react-hook-form";
 import InputForm from "../../components/Forms/InputForm";
 import uuid from "react-native-uuid";
 import { AsyncStorage } from "react-native";
+import {
+  useNavigation,
+  NavigationProp,
+  ParamListBase,
+} from "@react-navigation/native";
 interface FormData {
   name: string;
   amount: string;
@@ -48,6 +53,8 @@ export function Register() {
     key: "category",
     name: "Categoria",
   });
+
+  const { navigate }: NavigationProp<ParamListBase> = useNavigation();
 
   const handleTransacitonsTypesSelect = (type: string) => {
     setTransactionType(type);
@@ -94,6 +101,8 @@ export function Register() {
         key: "category",
         name: "Categoria",
       });
+
+      navigate("Listagem");
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível salvar");
