@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Keyboard, Modal, TouchableWithoutFeedback, Alert } from "react-native";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-import { Input } from "../../components/Forms/Input";
 
 import { Button } from "../../components/Forms/Button";
 import { TransactionTypeButton } from "../../components/Forms/TransactionTypeButton";
@@ -20,7 +18,8 @@ import { CategorySelectButton } from "../../components/Forms/CategorySelectButto
 import { CategorySelect } from "../CategorySelect";
 import { useForm } from "react-hook-form";
 import InputForm from "../../components/Forms/InputForm";
-
+import uuid from "react-native-uuid";
+import { AsyncStorage } from "react-native";
 interface FormData {
   name: string;
   amount: string;
@@ -41,6 +40,7 @@ export function Register() {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -61,7 +61,7 @@ export function Register() {
     setCategoryModalOpen(false);
   };
 
-  function handleRegister(form: any) {
+  async function handleRegister(form: any) {
     if (!transactionType) {
       return Alert.alert("Selecione o tipo da transação");
     }
@@ -70,13 +70,45 @@ export function Register() {
       return Alert.alert("Selecione a categoria");
     }
 
-    const data = {
+    const newTransaction = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionType,
       category: category.key,
+      date: new Date(),
     };
+
+    try {
+      const dataKey = "@gofinances:transactions";
+      const data = await AsyncStorage.getItem(dataKey);
+      const currentData = data ? JSON.parse(data) : [];
+
+      const dataFormated = [...currentData, newTransaction];
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
+
+      reset();
+      setTransactionType("");
+      setCategory({
+        key: "category",
+        name: "Categoria",
+      });
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Não foi possível salvar");
+    }
   }
+
+  useEffect(() => {
+    async function loadData() {
+      const dataKey = "@gofinances:transactions";
+
+      const data = await AsyncStorage.getItem(dataKey);
+      console.log(JSON.parse(data!));
+    }
+    loadData();
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
