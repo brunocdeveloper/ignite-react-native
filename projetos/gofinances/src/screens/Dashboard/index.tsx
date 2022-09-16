@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import HighlightCard from "../../components/HighlightCard";
 import {
@@ -24,6 +24,7 @@ import {
   TransactionList,
   LogoutButton,
 } from "./styles";
+import { useFocusEffect } from "@react-navigation/native";
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
@@ -60,13 +61,17 @@ export default function Dashboard() {
         };
       }
     );
-
-    setData(transactionsFormated);
   }
 
   useEffect(() => {
     loadTransactions();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadTransactions();
+    }, [])
+  );
 
   return (
     <Container>
