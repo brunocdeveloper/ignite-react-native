@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { HystoryCard } from "../../components/HistoryCard";
 import { AsyncStorage } from "react-native";
 
-import { Container, Header, Title } from "./styles";
+import { Container, Header, Title, Content } from "./styles";
+import { categories } from "../../utils/categories";
+import { ScrollView } from "react-native-gesture-handler";
 
 interface TransactionData {
   type: "positive" | "negative";
@@ -12,7 +14,17 @@ interface TransactionData {
   date: string;
 }
 
+interface CategoryData {
+  name: string;
+  total: string;
+  color: string;
+}
+
 export function Resume() {
+  const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>(
+    []
+  );
+
   async function loadData() {
     const dataKey = "@gofinances:transactions";
     const response = await AsyncStorage.getItem(dataKey);
@@ -21,6 +33,33 @@ export function Resume() {
     const expensives = responseFormatted.filter(
       (expensive: TransactionData) => expensive.type === "negative"
     );
+
+    const totalByCategory: CategoryData[] = [];
+
+    categories.forEach((category) => {
+      let categorySum = 0;
+
+      expensives.forEach((expensive: TransactionData) => {
+        if (expensive.category === category.key) {
+          categorySum += Number(expensive.amount);
+        }
+      });
+
+      if (categorySum > 0) {
+        const total = categorySum.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        });
+
+        totalByCategory.push({
+          name: category.name,
+          color: category.color,
+          total,
+        });
+      }
+    });
+
+    setTotalByCategories(totalByCategory);
   }
 
   useEffect(() => {
@@ -33,7 +72,16 @@ export function Resume() {
         <Title>Resumo por categoria</Title>
       </Header>
 
-      <HystoryCard title="Compras" amount="R$ 150,50" color="red" />
+      <Content>
+        {totalByCategories.map((item) => (
+          <HystoryCard
+            title={item.name}
+            amount={item.total}
+            key={item.total}
+            color={item.color}
+          />
+        ))}
+      </Content>
     </Container>
   );
 }
