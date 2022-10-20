@@ -43,7 +43,7 @@ export const MonthSelect = styled.View`
   margin-top: 24px;
 `;
 
-export const MonthSelectButton: any = styled(BorderlessButton)``;
+export const MonthSelectButton: any = styled.TouchableOpacity``;
 
 export const MonthSelectIcon = styled(Feather)`
   font-size: ${RFValue(24)}px;
