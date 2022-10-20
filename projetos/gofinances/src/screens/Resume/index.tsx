@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HystoryCard } from "../../components/HistoryCard";
 import { AsyncStorage } from "react-native";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 import { Container, Header, Title, Content, ChartContainer } from "./styles";
 import { categories } from "../../utils/categories";
@@ -91,7 +92,13 @@ export function Resume() {
         <Title>Resumo por categoria</Title>
       </Header>
 
-      <Content>
+      <Content
+        showVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingBottom: useBottomTabBarHeight(),
+        }}
+      >
         <ChartContainer>
           <VictoryPie
             data={totalByCategories}
