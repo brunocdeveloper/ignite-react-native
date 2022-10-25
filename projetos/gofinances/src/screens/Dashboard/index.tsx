@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator } from "react-native";
-import { getBottomSpace } from "react-native-iphone-x-helper";
 import HighlightCard from "../../components/HighlightCard";
 import {
   TransactionCard,
