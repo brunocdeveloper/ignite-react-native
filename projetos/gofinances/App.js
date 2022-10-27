@@ -2,7 +2,7 @@ import "react-native-gesture-handler";
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
 import React from "react";
-import Dashboard from "./src/screens/Dashboard";
+import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/global/styles/theme";
 import * as SplashScreen from "expo-splash-screen";
@@ -16,6 +16,8 @@ import {
 import { Register } from "./src/screens/Register";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutes } from "./src/routes/app.routes";
+
+import { SignIn } from "./src/screens/SignIn";
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
@@ -34,7 +36,8 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <AppRoutes />
+        <StatusBar barStyle="light-content" />
+        <SignIn />
       </NavigationContainer>
     </ThemeProvider>
   );
