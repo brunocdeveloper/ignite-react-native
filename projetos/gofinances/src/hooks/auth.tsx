@@ -56,7 +56,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         });
       }
     } catch (error) {
-      throw new Error(error);
+      console.log(error);
     }
   }
 
