@@ -35,13 +35,14 @@ function AuthProvider({ children }: AuthProviderProps) {
     try {
       const RESPONSE_TYPE = "token";
       const SCOPE = encodeURI("profile email");
+      const EXPO_REDIRECT_URI = AuthSession.makeRedirectUri({ useProxy: true });
 
-      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${EXPO_REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
       const { type, params } = (await AuthSession.startAsync({
         authUrl,
       })) as AuthorizarionResponse;
-
+      console.log({ type });
       if (type === "success") {
         const response = await fetch(
           `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`

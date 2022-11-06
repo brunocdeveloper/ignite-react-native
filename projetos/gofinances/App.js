@@ -6,6 +6,7 @@ import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/global/styles/theme";
 import * as SplashScreen from "expo-splash-screen";
+import { LogBox } from "react-native";
 
 import {
   useFonts,
@@ -20,6 +21,8 @@ import { AppRoutes } from "./src/routes/app.routes";
 import { SignIn } from "./src/screens/SignIn";
 import { AuthContext } from "./src/AuthContext";
 import { AuthProvider } from "./src/hooks/auth";
+
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 
 export default function App() {
   SplashScreen.preventAutoHideAsync();
