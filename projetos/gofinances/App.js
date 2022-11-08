@@ -14,12 +14,8 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { Register } from "./src/screens/Register";
-import { NavigationContainer } from "@react-navigation/native";
-import { AppRoutes } from "./src/routes/app.routes";
+import { Routes } from "./src/routes";
 
-import { SignIn } from "./src/screens/SignIn";
-import { AuthContext } from "./src/AuthContext";
 import { AuthProvider } from "./src/hooks/auth";
 
 LogBox.ignoreLogs(["EventEmitter.removeListener"]);
@@ -40,12 +36,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
-      </NavigationContainer>
+      <StatusBar barStyle="light-content" />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
