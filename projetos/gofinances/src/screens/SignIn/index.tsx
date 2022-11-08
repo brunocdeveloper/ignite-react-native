@@ -31,7 +31,6 @@ export const SignIn: React.FC = () => {
       return await signInWithGoogle();
     } catch (error) {
       Alert.alert("Não foi possivel conectar a conta Google");
-    } finally {
       setIsLoading(false);
     }
   }
@@ -41,7 +40,6 @@ export const SignIn: React.FC = () => {
       return await singInWithApple();
     } catch (error) {
       Alert.alert("Não foi possivel conectar a conta Apple");
-    } finally {
       setIsLoading(false);
     }
   }
