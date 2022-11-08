@@ -16,19 +16,22 @@ import {
 } from "@expo-google-fonts/poppins";
 import { Routes } from "./src/routes";
 
-import { AuthProvider } from "./src/hooks/auth";
+import { AuthProvider, useAuth } from "./src/hooks/auth";
 
 LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 
 export default function App() {
+  const { userStorageLoading } = useAuth();
+
   SplashScreen.preventAutoHideAsync();
+
   const [fonstLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_700Bold,
   });
 
-  if (!fonstLoaded) {
+  if (!fonstLoaded || userStorageLoading) {
     return null;
   }
 

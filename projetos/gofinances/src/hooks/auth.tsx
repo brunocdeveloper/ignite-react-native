@@ -7,7 +7,7 @@ import {
 } from "react";
 import * as AuthSession from "expo-auth-session";
 import * as AppleAuthentication from "expo-apple-authentication";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AsyncStorage } from "react-native";
 
 const { CLIENT_ID } = process.env;
 const { REDIRECT_URI } = process.env;
@@ -27,6 +27,7 @@ interface IAuthContextData {
   user: User;
   signInWithGoogle: () => Promise<void>;
   singInWithApple: () => Promise<void>;
+  singOut: () => Promise<void>;
   userStorageLoading: boolean;
 }
 
@@ -90,11 +91,13 @@ function AuthProvider({ children }: AuthProviderProps) {
       });
 
       if (credential) {
+        const name = credential.fullName!.givenName!;
+        const photo = `https://ui-avatars.com/api/?name=${name}&length=1`;
         const userLogged = {
           id: String(credential.user),
           email: credential.email!,
-          name: credential.fullName!.givenName!,
-          photo: undefined,
+          name,
+          photo,
         };
 
         setUser(userLogged);
@@ -103,6 +106,11 @@ function AuthProvider({ children }: AuthProviderProps) {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async function singOut() {
+    setUser({} as User);
+    await AsyncStorage.removeItem(userStorageKey);
   }
 
   useEffect(() => {
@@ -121,7 +129,13 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   return (
     <AuthContext.Provider
-      value={{ user, signInWithGoogle, singInWithApple, userStorageLoading }}
+      value={{
+        user,
+        signInWithGoogle,
+        singInWithApple,
+        userStorageLoading,
+        singOut,
+      }}
     >
       {children}
     </AuthContext.Provider>
