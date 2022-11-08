@@ -19,13 +19,21 @@ import {
 } from "./styles";
 
 export const SignIn: React.FC = () => {
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, singInWithApple } = useAuth();
 
   async function handleSingInWithGoogle() {
     try {
       await signInWithGoogle();
     } catch (error) {
       Alert.alert("Não foi possivel conectar a conta Google");
+    }
+  }
+
+  async function handleSingInWithApple() {
+    try {
+      await singInWithApple();
+    } catch (error) {
+      Alert.alert("Não foi possivel conectar a conta Apple");
     }
   }
 
@@ -50,7 +58,11 @@ export const SignIn: React.FC = () => {
             svg={GoogleSvg}
             onPress={handleSingInWithGoogle}
           />
-          <SignInSocialButton title="Entrar com Apple" svg={AppleSvg} />
+          <SignInSocialButton
+            title="Entrar com Apple"
+            svg={AppleSvg}
+            onPress={handleSingInWithApple}
+          />
         </FooterWrapper>
       </Footer>
     </Container>

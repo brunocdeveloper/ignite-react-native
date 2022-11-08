@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { HystoryCard } from "../../components/HistoryCard";
 import { AsyncStorage } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
