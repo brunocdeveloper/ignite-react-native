@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Header, TotalCars, HeaderContent } from "./styles";
+import { Container, Header, TotalCars, HeaderContent, CarList } from "./styles";
 import { StatusBar } from "react-native";
 
 import Logo from "../../assets/logo.svg";
@@ -32,7 +32,11 @@ const Home: React.FC = () => {
         </HeaderContent>
       </Header>
 
-      <Car data={carData} />
+      <CarList
+        data={[1, 2, 3, 4, 5, 6]}
+        keyExtractor={(item) => String(item)}
+        renderItem={({ item }) => <Car data={carData} />}
+      />
     </Container>
   );
 };
