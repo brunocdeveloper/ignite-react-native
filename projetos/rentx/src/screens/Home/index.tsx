@@ -4,6 +4,7 @@ import { StatusBar } from "react-native";
 
 import Logo from "../../assets/logo.svg";
 import { RFValue } from "react-native-responsive-fontsize";
+import Car from "../../components/Car";
 
 const Home: React.FC = () => {
   return (
@@ -19,6 +20,8 @@ const Home: React.FC = () => {
           <TotalCars>Total de 12 carros</TotalCars>
         </HeaderContent>
       </Header>
+
+      <Car />
     </Container>
   );
 };
