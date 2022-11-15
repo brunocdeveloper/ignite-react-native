@@ -7,6 +7,17 @@ import { RFValue } from "react-native-responsive-fontsize";
 import Car from "../../components/Car";
 
 const Home: React.FC = () => {
+  const carData = {
+    brand: "audi",
+    name: "RS 5 Coupé",
+    rent: {
+      period: "Ao dia",
+      price: 120,
+    },
+    thumbnail:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYl4rzE1_0rezfZwfkCevsxOFTfcP0YfXnoJ2lGfXH0jV-T7FyLZaQlPaguOoAr-BGbpQ&usqp=CAU",
+  };
+
   return (
     <Container>
       <StatusBar
@@ -21,7 +32,7 @@ const Home: React.FC = () => {
         </HeaderContent>
       </Header>
 
-      <Car />
+      <Car data={carData} />
     </Container>
   );
 };

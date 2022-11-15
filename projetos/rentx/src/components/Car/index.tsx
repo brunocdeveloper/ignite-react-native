@@ -14,17 +14,31 @@ import {
 } from "./styles";
 import GasolineSvg from "../../assets/gasoline.svg";
 
-const Car: React.FC = () => {
+interface CarData {
+  brand: string;
+  name: string;
+  rent: {
+    period: string;
+    price: number;
+  };
+  thumbnail: string;
+}
+
+interface Props {
+  data: CarData;
+}
+
+const Car = ({ data }: Props) => {
   return (
     <Container>
       <Details>
-        <Brand>Audi</Brand>
-        <Name>RS 5 Coupé</Name>
+        <Brand>{data.brand}</Brand>
+        <Name>{data.name}</Name>
 
         <About>
           <Rent>
-            <Period>Ao dia</Period>
-            <Price>R$ 120</Price>
+            <Period>{data.rent.period}</Period>
+            <Price>{`R$ ${data.rent.price}`}</Price>
           </Rent>
 
           <Type>
@@ -33,7 +47,7 @@ const Car: React.FC = () => {
         </About>
       </Details>
 
-      <CarImage source={{ uri: "" }} />
+      <CarImage source={{ uri: data.thumbnail }} />
     </Container>
   );
 };
