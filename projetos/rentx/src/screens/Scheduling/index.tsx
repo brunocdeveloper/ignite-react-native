@@ -18,9 +18,16 @@ import {
 import { StatusBar } from "expo-status-bar";
 import Button from "../../components/Button";
 import Calendar from "../../components/Calendar";
+import { useNavigation } from "@react-navigation/native";
 
 const Scheduling = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  function handleConfirmRental() {
+    navigation.navigate("SchedulingDetails");
+  }
+
   return (
     <Container>
       <Header>
@@ -51,7 +58,7 @@ const Scheduling = () => {
       </Content>
 
       <Footer>
-        <Button title="confirmar" />
+        <Button title="confirmar" onPress={handleConfirmRental} />
       </Footer>
     </Container>
   );
