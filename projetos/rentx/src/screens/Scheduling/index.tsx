@@ -12,8 +12,12 @@ import {
   DateInfo,
   DateTitle,
   DateValue,
+  Content,
+  Footer,
 } from "./styles";
 import { StatusBar } from "expo-status-bar";
+import Button from "../../components/Button";
+import Calendar from "../../components/Calendar";
 
 const Scheduling = () => {
   const theme = useTheme();
@@ -41,6 +45,14 @@ const Scheduling = () => {
           </DateInfo>
         </RentalPeriod>
       </Header>
+
+      <Content>
+        <Calendar />
+      </Content>
+
+      <Footer>
+        <Button title="confirmar" />
+      </Footer>
     </Container>
   );
 };
