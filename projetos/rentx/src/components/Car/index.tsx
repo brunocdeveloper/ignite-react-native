@@ -14,19 +14,10 @@ import {
 } from "./styles";
 import GasolineSvg from "../../assets/gasoline.svg";
 import { TouchableOpacityProps } from "react-native";
-
-interface CarData {
-  brand: string;
-  name: string;
-  rent: {
-    period: string;
-    price: number;
-  };
-  thumbnail: string;
-}
+import { CarDTO } from "../../dtos/CarDTO";
 
 interface Props extends TouchableOpacityProps {
-  data: CarData;
+  data: CarDTO;
 }
 
 const Car = ({ data, ...rest }: Props) => {
