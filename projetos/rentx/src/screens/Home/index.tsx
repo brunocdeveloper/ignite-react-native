@@ -8,9 +8,11 @@ import Car from "../../components/Car";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/api";
 import Load from "../../components/Load";
+import { CarDTO } from "../../dtos/CarDTO";
+import { CarDetailsProps } from "../../routes/stack.routes";
 
 const Home = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<CarDetailsProps>();
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,19 +30,8 @@ const Home = () => {
     fetchCars();
   }, []);
 
-  const carData = {
-    brand: "audi",
-    name: "RS 5 Coupé",
-    rent: {
-      period: "Ao dia",
-      price: 120,
-    },
-    thumbnail:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYl4rzE1_0rezfZwfkCevsxOFTfcP0YfXnoJ2lGfXH0jV-T7FyLZaQlPaguOoAr-BGbpQ&usqp=CAU",
-  };
-
-  function handleCarDetails() {
-    navigation.navigate("CarDetails");
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate("CarDetails", { car });
   }
 
   return (
@@ -64,7 +55,7 @@ const Home = () => {
           data={cars}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Car data={item} onPress={handleCarDetails} />
+            <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
         />
       )}
