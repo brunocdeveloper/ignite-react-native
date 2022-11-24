@@ -29,6 +29,7 @@ import {
 import Button from "../../components/Button";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { CarDTO } from "../../dtos/CarDTO";
+import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 
 interface Params {
   car: CarDTO;
@@ -81,7 +82,7 @@ const CarDetails = () => {
             <Accessory
               key={accessory.type}
               name={accessory.name}
-              icon={SpeedSvg}
+              icon={getAccessoryIcon(accessory.type)}
             />
           ))}
         </Accessories>
