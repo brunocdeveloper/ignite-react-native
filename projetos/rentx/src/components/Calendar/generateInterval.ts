@@ -12,7 +12,7 @@ export function generateInterval(start: DayProps, end: DayProps) {
     end: new Date(end.timestamp),
   }).forEach((item) => {
     const date = format(getPlatformDate(item), "yyyy-MM-dd");
-    console.log(date);
+
     interval = {
       ...interval,
       [date]: {

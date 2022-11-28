@@ -30,6 +30,7 @@ import Button from "../../components/Button";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
+import { SchedulingProps } from "../../routes/stack.routes";
 
 interface Params {
   car: CarDTO;
@@ -42,12 +43,12 @@ type ParamList = {
 };
 
 const CarDetails = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<SchedulingProps>();
   const route = useRoute<RouteProp<ParamList>>();
   const { car } = route.params;
 
   function handleConfirmRental() {
-    navigation.navigate("Scheduling");
+    navigation.navigate("Scheduling", { car });
   }
 
   function handleBack() {

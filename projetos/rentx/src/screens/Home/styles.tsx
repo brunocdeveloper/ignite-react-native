@@ -39,3 +39,19 @@ export const CarList = styled(
   },
   showsVerticalScrollIndicator: false,
 })``;
+
+export const MyCarsButton = styled.TouchableOpacity`
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+
+  background-color: ${({ theme }) => theme.colors.main};
+
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+
+  bottom: 15px;
+  right: 15px;
+`;
