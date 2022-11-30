@@ -54,10 +54,6 @@ const Scheduling = () => {
   const { car } = route.params;
 
   function handleConfirmRental() {
-    if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
-      Alert.alert("Selecione o intervalo para alugar.");
-      return;
-    }
     return navigation.navigate("SchedulingDetails", {
       car,
       dates: Object.keys(markedDates),
@@ -126,7 +122,11 @@ const Scheduling = () => {
       </Content>
 
       <Footer>
-        <Button title="confirmar" onPress={handleConfirmRental} />
+        <Button
+          title="confirmar"
+          onPress={handleConfirmRental}
+          disabled={!rentalPeriod.startFormatted}
+        />
       </Footer>
     </Container>
   );
