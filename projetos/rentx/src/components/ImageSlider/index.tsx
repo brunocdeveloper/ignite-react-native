@@ -17,10 +17,9 @@ const ImageSlider = ({ imagesUrl }: Props) => {
   return (
     <Container>
       <ImageIndexes>
-        <ImageIndex active={true} />
-        <ImageIndex active={false} />
-        <ImageIndex active={false} />
-        <ImageIndex active={false} />
+        {imagesUrl.map((_, index) => (
+          <ImageIndex key={index} active={true} />
+        ))}
       </ImageIndexes>
 
       <FlatList
