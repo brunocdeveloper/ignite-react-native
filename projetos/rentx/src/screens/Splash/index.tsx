@@ -3,6 +3,8 @@ import { Button, StyleSheet, Text } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
+  withTiming,
+  Easing,
 } from "react-native-reanimated";
 
 import { Container } from "./styles";
@@ -12,7 +14,14 @@ const Splash = () => {
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: animation.value }],
+      transform: [
+        {
+          translateX: withTiming(animation.value, {
+            duration: 500,
+            easing: Easing.bezier(0, 1.76, 1, -0.19),
+          }),
+        },
+      ],
     };
   });
 
