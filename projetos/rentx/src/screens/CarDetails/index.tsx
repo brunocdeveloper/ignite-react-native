@@ -31,7 +31,8 @@ import Animated, {
   interpolate,
   Extrapolate,
 } from "react-native-reanimated";
-import { StatusBar } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
+import { useTheme } from "styled-components";
 
 interface Params {
   car: CarDTO;
@@ -47,6 +48,7 @@ const CarDetails = () => {
   const navigation = useNavigation<SchedulingProps>();
   const route = useRoute<RouteProp<ParamList>>();
   const { car } = route.params;
+  const theme = useTheme();
 
   const scrollY = useSharedValue(0);
 
@@ -65,6 +67,12 @@ const CarDetails = () => {
     };
   });
 
+  const sliderCarsStyleAnimation = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(scrollY.value, [0, 150], [1, 0], Extrapolate.CLAMP),
+    };
+  });
+
   function handleConfirmRental() {
     navigation.navigate("Scheduling", { car });
   }
@@ -80,23 +88,32 @@ const CarDetails = () => {
         translucent
         backgroundColor="transparent"
       />
-      <Animated.View style={[headerStyleAnimation]}>
+      <Animated.View
+        style={[
+          headerStyleAnimation,
+          styles.header,
+          { backgroundColor: theme.colors.background_secondary },
+        ]}
+      >
         <Header>
           <BackButton onPress={handleBack} />
         </Header>
 
-        <CarImages>
-          <ImageSlider imagesUrl={car.photos} />
-        </CarImages>
+        <Animated.View style={sliderCarsStyleAnimation}>
+          <CarImages>
+            <ImageSlider imagesUrl={car.photos} />
+          </CarImages>
+        </Animated.View>
       </Animated.View>
 
       <Animated.ScrollView
         onScroll={scrollHanlder}
         contentContainerStyle={{
           paddingHorizontal: 24,
-          paddingTop: getStatusBarHeight(),
+          paddingTop: getStatusBarHeight() + 160,
         }}
         showsVerticalScrollIndicator={false}
+        scrollEventThrottle={10}
       >
         <Details>
           <Description>
@@ -136,3 +153,11 @@ const CarDetails = () => {
 };
 
 export default CarDetails;
+
+const styles = StyleSheet.create({
+  header: {
+    position: "absolute",
+    overflow: "hidden",
+    zIndex: 1,
+  },
+});
