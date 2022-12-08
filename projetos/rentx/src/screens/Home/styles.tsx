@@ -1,9 +1,9 @@
-import { FlatList, FlatListProps } from "react-native";
+import { FlatList, FlatListProps, SafeAreaView } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 import { CarDTO } from "../../dtos/CarDTO";
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
 
   background-color: ${({ theme }) => theme.colors.background_primary};
