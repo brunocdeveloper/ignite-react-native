@@ -10,7 +10,6 @@ import * as AppleAuthentication from "expo-apple-authentication";
 import { AsyncStorage } from "react-native";
 
 const { CLIENT_ID } = process.env;
-const { REDIRECT_URI } = process.env;
 
 interface AuthProviderProps {
   children: ReactNode;

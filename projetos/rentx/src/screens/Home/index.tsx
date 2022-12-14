@@ -8,10 +8,10 @@ import {
   MyCarsButton,
 } from "./styles";
 import {
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
+  BackHandler,
 } from "react-native";
 
 import Logo from "../../assets/logo.svg";
@@ -78,6 +78,12 @@ const Home = () => {
     }
     fetchCars();
   }, []);
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      return true;
+    });
+  });
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
