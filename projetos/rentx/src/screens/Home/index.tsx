@@ -30,6 +30,7 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { PanGestureHandler } from "react-native-gesture-handler";
+import LoadAnimation from "../../components/LoadAnimation";
 
 const ButtonAnimated = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -109,7 +110,7 @@ const Home = () => {
       </Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <CarList
           data={cars}
