@@ -5,6 +5,10 @@ interface ContainerProps {
   color: string;
 }
 
+interface ButtonText {
+  light?: boolean;
+}
+
 export const Container = styled.TouchableOpacity<ContainerProps>`
   width: 100%;
 
@@ -15,8 +19,10 @@ export const Container = styled.TouchableOpacity<ContainerProps>`
   justify-content: center;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text<ButtonText>`
   font-family: ${({ theme }) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
-  color: ${({ theme }) => theme.colors.shape};
+  color: ${({ theme, light }) => {
+    return light ? theme.colors.header : theme.colors.shape;
+  }};
 `;
