@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, View } from "react-native";
+import { KeyboardAvoidingView, StatusBar, View } from "react-native";
 import { useTheme } from "styled-components/native";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
@@ -9,43 +9,45 @@ import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
 const SignIn = () => {
   const theme = useTheme();
   return (
-    <Container>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      <Header>
-        <Title>Estamos{"\n"}quase lá.</Title>
-        <SubTitle>
-          Faça seu login para começar{"\n"}uma experiência incrível.
-        </SubTitle>
-      </Header>
-
-      <Form>
-        <Input
-          iconName="mail"
-          placeholder="E-mail"
-          keyboardType="email-address"
-          autoCorrect={false}
-          autoCapitalize="none"
+    <KeyboardAvoidingView behavior="position" enabled>
+      <Container>
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="transparent"
+          translucent
         />
+        <Header>
+          <Title>Estamos{"\n"}quase lá.</Title>
+          <SubTitle>
+            Faça seu login para começar{"\n"}uma experiência incrível.
+          </SubTitle>
+        </Header>
 
-        <PasswordInput iconName="lock" placeholder="Senha" />
-      </Form>
+        <Form>
+          <Input
+            iconName="mail"
+            placeholder="E-mail"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+          />
 
-      <Footer>
-        <View style={{ marginBottom: 8 }}>
-          <Button title="Login" onPress={() => {}} />
-        </View>
-        <Button
-          light={true}
-          title="Criar conta gratuita"
-          color={theme.colors.background_secondary}
-          onPress={() => {}}
-        />
-      </Footer>
-    </Container>
+          <PasswordInput iconName="lock" placeholder="Senha" />
+        </Form>
+
+        <Footer>
+          <View style={{ marginBottom: 8 }}>
+            <Button title="Login" onPress={() => {}} />
+          </View>
+          <Button
+            light={true}
+            title="Criar conta gratuita"
+            color={theme.colors.background_secondary}
+            onPress={() => {}}
+          />
+        </Footer>
+      </Container>
+    </KeyboardAvoidingView>
   );
 };
 
