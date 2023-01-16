@@ -26,7 +26,13 @@ type RootStackParamList = {
   Splash: undefined;
   SignIn: undefined;
   SignUpFirstStep: undefined;
-  SignUpSecondStep: undefined;
+  SignUpSecondStep: {
+    user: {
+      name: string;
+      email: string;
+      driverLicense: string;
+    };
+  };
 };
 
 export type CarDetailsProps = NativeStackNavigationProp<

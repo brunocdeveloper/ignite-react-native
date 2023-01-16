@@ -1,6 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import React, { useState } from "react";
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -22,11 +23,36 @@ import {
   Title,
 } from "./styles";
 
+interface Params {
+  user: {
+    name: string;
+    email: string;
+    driverLicense: string;
+  };
+}
+
 const SignUpSecondStep = () => {
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
   const navigation = useNavigation<NavigationProps>();
+  const route = useRoute();
   const theme = useTheme();
+
+  const { user } = route.params as Params;
+
   const handleBack = () => {
     navigation.goBack();
+  };
+
+  const handleRegister = () => {
+    if (!password || !passwordConfirm) {
+      return Alert.alert("Informe a senha e a confirmação");
+    }
+
+    if (password !== passwordConfirm) {
+      return Alert.alert("As senhas não são iguais");
+    }
   };
 
   return (
@@ -48,11 +74,25 @@ const SignUpSecondStep = () => {
 
           <Form>
             <FormTitle>2. Senha</FormTitle>
-            <PasswordInput iconName="lock" placeholder="Senha" />
-            <PasswordInput iconName="lock" placeholder="Repetir senha" />
+            <PasswordInput
+              iconName="lock"
+              placeholder="Senha"
+              onChangeText={setPassword}
+              value={password}
+            />
+            <PasswordInput
+              iconName="lock"
+              placeholder="Repetir senha"
+              onChangeText={setPasswordConfirm}
+              value={passwordConfirm}
+            />
           </Form>
 
-          <Button color={theme.colors.success} title="Cadastrar" />
+          <Button
+            color={theme.colors.success}
+            title="Cadastrar"
+            onPress={handleRegister}
+          />
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
