@@ -12,7 +12,7 @@ import { TextInputProps } from "react-native";
 
 interface Props extends TextInputProps {
   iconName: React.ComponentProps<typeof Feather>["name"];
-  value: string;
+  value?: string;
 }
 
 const PasswordInput = ({ iconName, value, ...rest }: Props) => {
@@ -35,8 +35,8 @@ const PasswordInput = ({ iconName, value, ...rest }: Props) => {
   };
 
   return (
-    <Container isFocused={isFocused}>
-      <IconContainer>
+    <Container>
+      <IconContainer isFocused={isFocused}>
         <Feather
           name={iconName}
           size={24}
@@ -48,12 +48,16 @@ const PasswordInput = ({ iconName, value, ...rest }: Props) => {
 
       <InputText
         {...rest}
+        isFocused={isFocused}
         secureTextEntry={isPasswordVisible}
         onFocus={handleIsFocused}
         onBlur={handleInputBlur}
       />
 
-      <ChangePasswordVisibilityButton onPress={handlePasswordVisibilityChange}>
+      <ChangePasswordVisibilityButton
+        onPress={handlePasswordVisibilityChange}
+        isFocused={isFocused}
+      >
         <Feather
           name={isPasswordVisible ? "eye" : "eye-off"}
           size={24}

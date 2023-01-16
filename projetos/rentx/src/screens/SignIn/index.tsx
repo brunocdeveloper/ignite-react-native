@@ -1,16 +1,57 @@
 import React, { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, StatusBar, View } from "react-native";
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  StatusBar,
+  View,
+} from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useTheme } from "styled-components/native";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import PasswordInput from "../../components/PasswordInput";
 import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
+import * as Yup from "yup";
+import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "../../routes/stack.routes";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const theme = useTheme();
+  const navigation = useNavigation<NavigationProps>();
+
+  const handleSignIn = async () => {
+    try {
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required("E-mail obrigatório")
+          .email("Digite um e-mail válido"),
+        password: Yup.string().required("A senha é obrigatória"),
+      });
+
+      await schema.validate({
+        email,
+        password,
+      });
+
+      Alert.alert("Tudo certo");
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        return Alert.alert("Opa", error.message);
+      } else {
+        Alert.alert(
+          "Erro na autenticação",
+          "Ocorreu um erro ao fazer login, verifique as credenciais"
+        );
+      }
+    }
+  };
+
+  const handleNewAcount = () => {
+    navigation.navigate("SignUpFirstStep");
+  };
 
   return (
     <KeyboardAvoidingView behavior="position" enabled>
@@ -49,13 +90,13 @@ const SignIn = () => {
 
           <Footer>
             <View style={{ marginBottom: 8 }}>
-              <Button title="Login" onPress={() => {}} />
+              <Button title="Login" onPress={handleSignIn} />
             </View>
             <Button
               light={true}
               title="Criar conta gratuita"
               color={theme.colors.background_secondary}
-              onPress={() => {}}
+              onPress={handleNewAcount}
             />
           </Footer>
         </Container>

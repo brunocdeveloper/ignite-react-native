@@ -25,8 +25,8 @@ const Input = ({ iconName, value, ...rest }: Props) => {
   };
 
   return (
-    <Container isFocused={isFocused}>
-      <IconContainer>
+    <Container>
+      <IconContainer isFocused={isFocused}>
         <Feather
           name={iconName}
           size={24}
@@ -35,7 +35,12 @@ const Input = ({ iconName, value, ...rest }: Props) => {
           }
         />
       </IconContainer>
-      <InputText {...rest} onFocus={handleIsFocused} onBlur={handleInputBlur} />
+      <InputText
+        {...rest}
+        isFocused={isFocused}
+        onFocus={handleIsFocused}
+        onBlur={handleInputBlur}
+      />
     </Container>
   );
 };
