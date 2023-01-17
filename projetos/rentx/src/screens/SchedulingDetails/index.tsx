@@ -38,6 +38,7 @@ import { format } from "date-fns";
 import { getPlatformDate } from "../../utils/getPlataformDate";
 import api from "../../services/api";
 import { Alert } from "react-native";
+import { NavigationProps } from "../../routes/stack.routes";
 
 type ParamList = {
   param: {
@@ -57,7 +58,7 @@ const SchedulingDetails = () => {
   );
 
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
   const route = useRoute<RouteProp<ParamList>>();
   const { car, dates } = route.params;
 
@@ -86,7 +87,14 @@ const SchedulingDetails = () => {
         id: car.id,
         unavailable_dates,
       })
-      .then(() => navigation.navigate("SchedulingComplete"))
+      .then(() =>
+        navigation.navigate("Confirmation", {
+          nextScreenRoute: "SignIn",
+          title: "Carro alugado!",
+          message:
+            "Agora você só precisa ir\naté a concessionária da RENTX\npegar o seu automóvel",
+        })
+      )
       .catch(() => Alert.alert("Não foi possível confirmar o agendamento"));
   }
 

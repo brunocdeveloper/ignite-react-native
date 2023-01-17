@@ -39,7 +39,7 @@ const SignUpSecondStep = () => {
   const route = useRoute();
   const theme = useTheme();
 
-  const { user } = route.params as Params;
+  // const { user } = route.params as Params;
 
   const handleBack = () => {
     navigation.goBack();
@@ -53,6 +53,12 @@ const SignUpSecondStep = () => {
     if (password !== passwordConfirm) {
       return Alert.alert("As senhas não são iguais");
     }
+
+    navigation.navigate("Confirmation", {
+      nextScreenRoute: "SignIn",
+      title: "Conta criada!",
+      message: `Agora é só fazer login\ne aproveitar`,
+    });
   };
 
   return (
