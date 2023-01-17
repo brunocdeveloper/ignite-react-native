@@ -15,12 +15,15 @@ import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProps } from "../../routes/stack.routes";
+import { useAuth } from "../../hooks/auth";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const theme = useTheme();
   const navigation = useNavigation<NavigationProps>();
+
+  const { signIn } = useAuth();
 
   const handleSignIn = async () => {
     try {
@@ -37,6 +40,7 @@ const SignIn = () => {
       });
 
       Alert.alert("Tudo certo");
+      signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         return Alert.alert("Opa", error.message);
