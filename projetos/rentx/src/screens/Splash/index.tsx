@@ -13,10 +13,11 @@ import BrandSvg from "../../assets/brand.svg";
 
 import { Container } from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import { NavigationProps } from "../../routes/auth.routes";
 
 const Splash = () => {
   const splashAniomation = useSharedValue(0);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   const brandStyle = useAnimatedStyle(() => ({
     opacity: interpolate(
@@ -57,7 +58,7 @@ const Splash = () => {
   }));
 
   function startApp() {
-    navigation.navigate("Home");
+    navigation.navigate("SignIn");
   }
 
   useEffect(() => {

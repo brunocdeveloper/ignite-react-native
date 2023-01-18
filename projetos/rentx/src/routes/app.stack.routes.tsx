@@ -59,17 +59,10 @@ export type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
-export function StackRoutes() {
+export function AppStackRoutes() {
   return (
-    <Navigator screenOptions={{ headerShown: false }} initialRouteName="SignIn">
-      <Screen name="SignIn" component={SignIn} />
-      <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
-      <Screen name="SignUpSecondStep" component={SignUpSecondStep} />
-      <Screen
-        name="Home"
-        component={Home}
-        options={{ gestureEnabled: false }}
-      />
+    <Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+      <Screen name="Home" component={Home} />
       <Screen name="CarDetails" component={CarDetails} />
       <Screen name="Scheduling" component={Scheduling} />
       <Screen name="SchedulingDetails" component={SchedulingDetails} />
