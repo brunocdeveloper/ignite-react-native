@@ -14,7 +14,7 @@ import PasswordInput from "../../components/PasswordInput";
 import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
-import { NavigationProps } from "../../routes/stack.routes";
+import { NavigationProps } from "../../routes/app.stack.routes";
 import { useAuth } from "../../hooks/auth";
 
 const SignIn = () => {

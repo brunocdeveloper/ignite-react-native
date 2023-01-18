@@ -22,7 +22,7 @@ import Button from "../../components/Button";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
-import { SchedulingProps } from "../../routes/stack.routes";
+import { SchedulingProps } from "../../routes/app.stack.routes";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import Animated, {
   useSharedValue,

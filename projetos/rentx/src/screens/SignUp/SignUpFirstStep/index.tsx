@@ -11,7 +11,7 @@ import BackButton from "../../../components/BackButton";
 import Bullet from "../../../components/Bullet";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
-import { NavigationProps } from "../../../routes/stack.routes";
+import { NavigationProps } from "../../../routes/app.stack.routes";
 import * as Yup from "yup";
 
 import {

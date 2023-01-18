@@ -26,7 +26,7 @@ import {
 import { getPlatformDate } from "../../utils/getPlataformDate";
 import { format } from "date-fns";
 import { Alert } from "react-native";
-import { SchedulingDetailsProps } from "../../routes/stack.routes";
+import { SchedulingDetailsProps } from "../../routes/app.stack.routes";
 import { CarDTO } from "../../dtos/CarDTO";
 
 interface RentalPeriodTypes {

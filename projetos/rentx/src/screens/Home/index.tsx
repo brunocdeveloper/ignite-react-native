@@ -21,7 +21,7 @@ import { useNavigation } from "@react-navigation/native";
 import api from "../../services/api";
 import Load from "../../components/Load";
 import { CarDTO } from "../../dtos/CarDTO";
-import { CarDetailsProps } from "../../routes/stack.routes";
+import { CarDetailsProps } from "../../routes/app.stack.routes";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "styled-components";
 import Animated, {

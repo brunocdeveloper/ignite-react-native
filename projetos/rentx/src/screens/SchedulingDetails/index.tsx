@@ -38,7 +38,7 @@ import { format } from "date-fns";
 import { getPlatformDate } from "../../utils/getPlataformDate";
 import api from "../../services/api";
 import { Alert } from "react-native";
-import { NavigationProps } from "../../routes/stack.routes";
+import { NavigationProps } from "../../routes/app.stack.routes";
 
 type ParamList = {
   param: {
