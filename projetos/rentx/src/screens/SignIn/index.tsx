@@ -39,7 +39,6 @@ const SignIn = () => {
         password,
       });
 
-      Alert.alert("Tudo certo");
       signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {

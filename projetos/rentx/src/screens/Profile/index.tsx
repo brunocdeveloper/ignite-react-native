@@ -23,6 +23,7 @@ import { KeyboardAvoidingView } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import PasswordInput from "../../components/PasswordInput";
 import { useAuth } from "../../hooks/auth";
+import * as ImagePicker from "expo-image-picker";
 
 enum OptionType {
   "DATA_EDIT" = "dataEdit",
@@ -30,20 +31,43 @@ enum OptionType {
 }
 
 const Profile = () => {
-  const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const theme = useTheme();
   const navigation = useNavigation();
+
+  const [avatar, setAvatar] = useState(user.avatar);
+  const [name, setName] = useState(user.name);
+  const [diverLicense, setDiverLicense] = useState(user.driver_license);
+  const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
 
   const handleBack = () => {
     navigation.goBack();
   };
 
-  const handleSignOut = () => {};
+  const handleSignOut = () => {
+    signOut();
+  };
 
   const handleOptionChange = (option: "dataEdit" | "passwordEdit") => () => {
     setOption(option);
   };
+
+  async function handleChangeAvatar() {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    if (result.canceled) {
+      return;
+    }
+
+    if (result.uri) {
+      setAvatar(result.uri);
+    }
+  }
 
   return (
     <KeyboardAvoidingView behavior="position" enabled>
@@ -58,12 +82,14 @@ const Profile = () => {
           </HeaderTop>
 
           <PhotoContainer>
-            <Photo
-              source={{
-                uri: "https://avatars.githubusercontent.com/u/72170223?v=4",
-              }}
-            />
-            <PhotoButton onPress={() => {}}>
+            {avatar && (
+              <Photo
+                source={{
+                  uri: avatar,
+                }}
+              />
+            )}
+            <PhotoButton onPress={handleChangeAvatar}>
               <Feather name="camera" size={24} color={theme.colors.shape} />
             </PhotoButton>
           </PhotoContainer>
@@ -94,6 +120,7 @@ const Profile = () => {
                 placeholder="Nome"
                 autoCorrect={false}
                 defaultValue={user.name}
+                onChangeText={setName}
               />
               <Input
                 iconName="mail"
@@ -106,6 +133,7 @@ const Profile = () => {
                 placeholder="CNH"
                 keyboardType="numeric"
                 defaultValue={user.driver_license}
+                onChangeText={setDiverLicense}
               />
             </Section>
           )}
