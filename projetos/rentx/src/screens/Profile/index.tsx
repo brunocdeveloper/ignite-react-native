@@ -19,11 +19,13 @@ import {
   Section,
 } from "./styles";
 import Input from "../../components/Input";
-import { KeyboardAvoidingView } from "react-native";
+import { Alert, KeyboardAvoidingView } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import PasswordInput from "../../components/PasswordInput";
 import { useAuth } from "../../hooks/auth";
 import * as ImagePicker from "expo-image-picker";
+import Button from "../../components/Button";
+import * as Yup from "yup";
 
 enum OptionType {
   "DATA_EDIT" = "dataEdit",
@@ -31,13 +33,13 @@ enum OptionType {
 }
 
 const Profile = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, updateUser } = useAuth();
   const theme = useTheme();
   const navigation = useNavigation();
 
   const [avatar, setAvatar] = useState(user.avatar);
   const [name, setName] = useState(user.name);
-  const [diverLicense, setDiverLicense] = useState(user.driver_license);
+  const [driverLicense, setDriverLicense] = useState(user.driver_license);
   const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
 
   const handleBack = () => {
@@ -66,6 +68,35 @@ const Profile = () => {
 
     if (result.uri) {
       setAvatar(result.uri);
+    }
+  }
+
+  async function handleProfileUpdate() {
+    try {
+      const schema = Yup.object().shape({
+        driverLicense: Yup.string().required("CNH é obrigatório"),
+        name: Yup.string().required("Nome é obrigatório"),
+      });
+
+      const data = { name, driverLicense };
+      await schema.validate(data);
+
+      await updateUser({
+        id: user.id,
+        user_id: user.id,
+        email: user.email,
+        name,
+        driver_license: driverLicense,
+        avatar,
+        token: user.token,
+      });
+
+      Alert.alert("Perfil atualizado");
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert("Opa", error.message);
+      }
+      Alert.alert("Não foi possível atualizar o perfil");
     }
   }
 
@@ -133,7 +164,7 @@ const Profile = () => {
                 placeholder="CNH"
                 keyboardType="numeric"
                 defaultValue={user.driver_license}
-                onChangeText={setDiverLicense}
+                onChangeText={setDriverLicense}
               />
             </Section>
           )}
@@ -157,6 +188,8 @@ const Profile = () => {
               />
             </Section>
           )}
+
+          <Button title="Salvar alterações" onPress={handleProfileUpdate} />
         </Content>
       </Container>
     </KeyboardAvoidingView>
