@@ -47,7 +47,21 @@ const Profile = () => {
   };
 
   const handleSignOut = () => {
-    signOut();
+    Alert.alert(
+      "Tem certeza?",
+      "Lembre-se, que se você sair, irá precisar de internet para conectar-se novamente.",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => {},
+          style: "cancel",
+        },
+        {
+          text: "Sair",
+          onPress: () => signOut(),
+        },
+      ]
+    );
   };
 
   const handleOptionChange = (option: "dataEdit" | "passwordEdit") => () => {
