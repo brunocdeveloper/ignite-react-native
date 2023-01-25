@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Header,
-  TotalCars,
-  HeaderContent,
-  CarList,
-  MyCarsButton,
-} from "./styles";
+import { Container, Header, TotalCars, HeaderContent, CarList } from "./styles";
 import {
   StatusBar,
   StyleSheet,
   TouchableOpacity,
   BackHandler,
+  Alert,
 } from "react-native";
 
 import Logo from "../../assets/logo.svg";
@@ -19,7 +13,6 @@ import { RFValue } from "react-native-responsive-fontsize";
 import Car from "../../components/Car";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/api";
-import Load from "../../components/Load";
 import { CarDTO } from "../../dtos/CarDTO";
 import { CarDetailsProps } from "../../routes/app.stack.routes";
 import { Ionicons } from "@expo/vector-icons";
@@ -31,14 +24,17 @@ import Animated, {
 } from "react-native-reanimated";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import LoadAnimation from "../../components/LoadAnimation";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 const ButtonAnimated = Animated.createAnimatedComponent(TouchableOpacity);
 
 const Home = () => {
   const navigation = useNavigation<CarDetailsProps>();
+  const theme = useTheme();
+
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
-  const theme = useTheme();
+  const netInfo = useNetInfo();
 
   const positionY = useSharedValue(0);
   const positionX = useSharedValue(0);
@@ -94,7 +90,13 @@ const Home = () => {
     BackHandler.addEventListener("hardwareBackPress", () => {
       return true;
     });
-  });
+
+    if (netInfo.isConnected) {
+      Alert.alert("Você está On-Line");
+    } else {
+      Alert.alert("Você está Off-line");
+    }
+  }, [netInfo.isConnected]);
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
