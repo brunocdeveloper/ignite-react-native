@@ -25,6 +25,9 @@ import Animated, {
 import { PanGestureHandler } from "react-native-gesture-handler";
 import LoadAnimation from "../../components/LoadAnimation";
 import { useNetInfo } from "@react-native-community/netinfo";
+import { synchronize } from "@nozbe/watermelondb/sync";
+import { database } from "../../database";
+import { Car as ModelCar } from "../../database/model/Car";
 
 const ButtonAnimated = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -62,14 +65,34 @@ const Home = () => {
     },
   });
 
+  async function offlineSynchronize() {
+    await synchronize({
+      database,
+      pullChanges: async ({ lastPulledAt }) => {
+        const response = await api.get(
+          `cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`
+        );
+
+        const { changes, latestVersion } = response.data;
+        return { changes, timestamp: latestVersion };
+      },
+      pushChanges: async ({ changes }) => {
+        const user = changes.users;
+        await api.post("/users/sync", user);
+      },
+    });
+  }
+
   useEffect(() => {
     let isMounted = true;
 
     async function fetchCars() {
       try {
-        const response = await api.get("/cars");
+        const carCollection = database.get<ModelCar>("cars");
+        const cars = await carCollection.query().fetch();
+        console.log({ cars });
         if (isMounted) {
-          setCars(response.data);
+          setCars(cars);
         }
       } catch (error) {
         console.log(error);
@@ -87,14 +110,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      return true;
-    });
-
-    if (netInfo.isConnected) {
-      Alert.alert("Você está On-Line");
-    } else {
-      Alert.alert("Você está Off-line");
+    if (netInfo.isConnected === true) {
+      offlineSynchronize();
     }
   }, [netInfo.isConnected]);
 
