@@ -90,7 +90,6 @@ const Home = () => {
       try {
         const carCollection = database.get<ModelCar>("cars");
         const cars = await carCollection.query().fetch();
-        console.log({ cars });
         if (isMounted) {
           setCars(cars);
         }
