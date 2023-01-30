@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Header, TotalCars, HeaderContent, CarList } from "./styles";
-import {
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-  BackHandler,
-  Alert,
-} from "react-native";
+import { StatusBar, StyleSheet, TouchableOpacity } from "react-native";
 
 import Logo from "../../assets/logo.svg";
 import { RFValue } from "react-native-responsive-fontsize";
