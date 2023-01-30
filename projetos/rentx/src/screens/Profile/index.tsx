@@ -26,6 +26,7 @@ import { useAuth } from "../../hooks/auth";
 import * as ImagePicker from "expo-image-picker";
 import Button from "../../components/Button";
 import * as Yup from "yup";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 enum OptionType {
   "DATA_EDIT" = "dataEdit",
@@ -34,6 +35,7 @@ enum OptionType {
 
 const Profile = () => {
   const { user, signOut, updateUser } = useAuth();
+  const netInfo = useNetInfo();
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -65,6 +67,12 @@ const Profile = () => {
   };
 
   const handleOptionChange = (option: "dataEdit" | "passwordEdit") => () => {
+    if (netInfo.isConnected === false && option === "passwordEdit") {
+      return Alert.alert(
+        "Você está offline",
+        "Para mudar a senha, conecte-se a internet"
+      );
+    }
     setOption(option);
   };
 
