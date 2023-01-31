@@ -24,13 +24,14 @@ import {
 } from "./styles";
 import Load from "../../components/Load";
 import LoadAnimation from "../../components/LoadAnimation";
+import { format, parseISO } from "date-fns";
 
 interface CarProps {
   id: string;
   user_id: string;
   car: CarDTO;
-  startDate: string;
-  endDate: string;
+  start_date: string;
+  end_date: string;
 }
 
 const MyCars = () => {
@@ -46,8 +47,16 @@ const MyCars = () => {
   useEffect(() => {
     async function fetchCArs() {
       try {
-        const response = await api.get(`/schedules_byuser?user_id=1`);
-        setCars(response.data);
+        const response = await api.get(`/rentals`);
+        const dataFormatted = response.data.map((data) => {
+          return {
+            car: data.car,
+            start_date: format(parseISO(data.start_date), "dd/MM/yyyy"),
+            end_date: format(parseISO(data.end_date), "dd/MM/yyyy"),
+          };
+        });
+
+        setCars(dataFormatted);
       } catch (error) {
         console.log(error);
       } finally {
@@ -94,7 +103,7 @@ const MyCars = () => {
                 <CarFooter>
                   <CarFooterTitle>Período</CarFooterTitle>
                   <CarFooterPeriod>
-                    <CarFooterDate>{item.startDate}</CarFooterDate>
+                    <CarFooterDate>{item.start_date}</CarFooterDate>
                   </CarFooterPeriod>
                   <AntDesign
                     name="arrowright"
@@ -102,7 +111,7 @@ const MyCars = () => {
                     color={theme.colors.title}
                     style={{ marginHorizontal: 10 }}
                   />
-                  <CarFooterDate>{item.endDate}</CarFooterDate>
+                  <CarFooterDate>{item.end_date}</CarFooterDate>
                 </CarFooter>
               </CarWrapper>
             )}
