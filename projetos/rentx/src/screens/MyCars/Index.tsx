@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FlatList, StatusBar } from "react-native";
 import { useTheme } from "styled-components";
@@ -39,6 +39,7 @@ const MyCars = () => {
   const [loading, setLoading] = useState(true);
   const theme = useTheme();
   const navigation = useNavigation();
+  const screenIsFocus = useIsFocused();
 
   function handleBack() {
     navigation.goBack();
@@ -50,6 +51,7 @@ const MyCars = () => {
         const response = await api.get(`/rentals`);
         const dataFormatted = response.data.map((data) => {
           return {
+            id: data.id,
             car: data.car,
             start_date: format(parseISO(data.start_date), "dd/MM/yyyy"),
             end_date: format(parseISO(data.end_date), "dd/MM/yyyy"),
@@ -65,7 +67,7 @@ const MyCars = () => {
     }
 
     fetchCArs();
-  }, []);
+  }, [screenIsFocus]);
 
   return (
     <Container>
