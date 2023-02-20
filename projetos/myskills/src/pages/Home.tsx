@@ -40,13 +40,18 @@ export function Home() {
       </Text>
 
       <TextInput
+        testID="input-new"
         style={styles.input}
         placeholder="New skill"
         placeholderTextColor="#555"
         onChangeText={setNewSkill}
       />
 
-      <Button onPress={handleNewAddSkill} title="Add" />
+      <Button
+        testID="button-add-task"
+        onPress={handleNewAddSkill}
+        title="Add"
+      />
 
       <Text style={[styles.title, {marginVertical: 50}]}>My Skills</Text>
 
