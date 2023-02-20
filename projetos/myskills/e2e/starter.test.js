@@ -13,10 +13,13 @@ describe('Example', () => {
 
   it('check register a new skill', async () => {
     const inputNewSkill = await element(by.id('input-new'));
+    const flatList = await element(by.id('flatlist-skills'));
 
     await inputNewSkill.tap();
-    await inputNewSkill.typeText('React Native');
+    await inputNewSkill.typeText('React Native\n');
 
     await element(by.id('button-add-task'));
+
+    await flatList.tap();
   });
 });

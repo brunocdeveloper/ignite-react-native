@@ -56,7 +56,9 @@ export function Home() {
       <Text style={[styles.title, {marginVertical: 50}]}>My Skills</Text>
 
       <FlatList
+        testID="flatlist-skills"
         data={mySkills}
+        keyboardShouldPersistTaps="never"
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <SkillCard
