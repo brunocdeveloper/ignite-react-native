@@ -57,7 +57,7 @@ export function Register() {
     name: "Categoria",
   });
 
-  const { navigate }: NavigationProp<ParamListBase> = useNavigation();
+  // const { navigate }: NavigationProp<ParamListBase> = useNavigation();
 
   const handleTransacitonsTypesSelect = (type: string) => {
     setTransactionType(type);
@@ -105,7 +105,7 @@ export function Register() {
         name: "Categoria",
       });
 
-      navigate("Listagem");
+      // navigate("Listagem");
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível salvar");
@@ -162,6 +162,7 @@ export function Register() {
               />
             </TransacitonsTypes>
             <CategorySelectButton
+              testID="button-category"
               title={category.name}
               onPress={handleOpenCloseSelectCategoryModal}
             />
@@ -170,7 +171,7 @@ export function Register() {
           <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
         </Form>
 
-        <Modal visible={categoryModalOpen}>
+        <Modal testID="modal-category" visible={categoryModalOpen}>
           <CategorySelect
             category={category}
             setCategory={setCategory}
