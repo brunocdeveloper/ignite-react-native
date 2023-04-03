@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { Text, View } from "react-native";
+import lodash from "lodash";
 
 interface Props {
   data: {
@@ -17,5 +18,5 @@ const Friend = ({ data }: Props) => {
 };
 
 export default memo(Friend, (prevProps, nextProps) => {
-  return Object.is(prevProps.data, nextProps.data);
+  return lodash.isEqual(prevProps.data, nextProps.data);
 });
