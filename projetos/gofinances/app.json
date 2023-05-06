@@ -17,6 +17,10 @@
     "android": {
       "package": "com.gofinances",
       "versionCode": 1
+    },
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#5636D3"
     }
   }
 }
